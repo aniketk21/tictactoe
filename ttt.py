@@ -106,13 +106,13 @@ class Board(object):
                             best_score = (score, (row, col))
             return best_score
 
-    def play_turn(self, x, y, player):
+    def play_turn(self, row, col, player):
         if player == 'comp':
-            self.grid[x][y] = self.comp
-            self.occupied.append((x, y))
+            self.grid[row][col] = self.comp
+            self.occupied.append((row, col))
         else:
-            self.grid[x][y] = self.human
-            self.occupied.append((x, y))
+            self.grid[row][col] = self.human
+            self.occupied.append((row, col))
         return self
 
     def draw(self): # match is a draw
