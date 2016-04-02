@@ -9,10 +9,14 @@ class Board(object):
         self.human = human
         self.grid = grid
         self.occupied = [] # store occupied positions in the grid as a tuple in this list.
+        self.empty_location = ' '
 
     def display_board(self): # for testing only
+        print '    0    1    2'
+        i = 0
         for element in self.grid:
-            print element
+            print i, element
+            i += 1
 
     def won(self, player):
         if player == 'comp':
@@ -44,7 +48,7 @@ class Board(object):
                 if len(status) == DIMENSIONS:
                     return status
             return None # default case
-        
+
         if player == 'human':
             for row in range(DIMENSIONS): # check horizontal
                 status = []
@@ -74,8 +78,33 @@ class Board(object):
                 if len(status) == DIMENSIONS:
                     return status
             return None # default case
-
-    def minimax(self, player): # to be implemented
+        
+    def minimax(self, player):
+        if self.won(player):
+            if player == 'comp':
+                return (1, None)
+            else:
+                return (-1, None)
+        elif self.draw():
+            return (0, None)
+        elif player == 'human':
+            best_score = (-2, None)
+            for row in range(DIMENSIONS):
+                for col in range(DIMENSIONS):
+                    if self.grid[row][col] == self.empty_location:
+                        score = self.play_turn(row, col, 'comp').minimax(not 'comp')[0]
+                        if score > best_score[0]:
+                            best_score = (score, (row, col))
+            return best_score
+        else:
+            best_score = (2, None)
+            for row in range(DIMENSIONS):
+                for col in range(DIMENSIONS):
+                    if self.grid[row][col] == self.empty_location:
+                        score = self.play_turn(row, col, 'comp').minimax(not 'human')[0]
+                        if score < best_score[0]:
+                            best_score = (score, (row, col))
+            return best_score
 
     def play_turn(self, x, y, player):
         if player == 'comp':
@@ -94,9 +123,14 @@ class Board(object):
                 return False
         return True
 
-b =  Board()
-b.display_board()
-b.play_turn(1, 1,' comp')
-b.display_board()
-print b.grid
-print b.occupied
+g =  Board()
+g.display_board()
+for i in range(3):
+    g.move(i % 3, (i + 1) % 3)
+    print 'before minimax'
+    g.display_board()
+    g.minimax('comp')
+    print 'after minimax'
+    g.display_board()
+    
+print 'exit', g.display_board()
