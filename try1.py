@@ -99,7 +99,7 @@ class Board(object):
             for row in range(DIMENSIONS):
                 for col in range(DIMENSIONS):
                     if self.grid[row][col] == self.empty_location:
-                        score = self.play_turn(row, col, 'comp').minimax(not 'comp')[0]
+                        score = self.play_turn(row, col, 'comp').minimax('comp')[0]
                         if score > best_score[0]:
                             best_score = (score, (row, col))
             return best_score
@@ -108,13 +108,13 @@ class Board(object):
             for row in range(DIMENSIONS):
                 for col in range(DIMENSIONS):
                     if self.grid[row][col] == self.empty_location:
-                        score = self.play_turn(row, col, 'comp').minimax(not 'human')[0]
+                        score = self.play_turn(row, col, 'human').minimax('human')[0]
                         if score < best_score[0]:
                             best_score = (score, (row, col))
             return best_score
 
     def best_score(self):
-    	    return self.minimax(True)[1]
+        return self.minimax(True)[1]
 
     def play_turn(self, row, col, player):
         if player == 'comp':
@@ -146,11 +146,11 @@ class Board(object):
 #print 'exit', g.display_board()
 
 
-class GUI():
+class GUI(Board):
 
   def __init__(self):
     self.app = Tk()
-    self.app.title('TicTacToe')
+    self.app.title('Tic Tac Toe')
     self.app.resizable(width=False, height=False)
     self.board = Board()
     self.font = Font(family="Helvetica", size=32)
@@ -162,7 +162,7 @@ class GUI():
 	    button.grid(row=col, column=row)
             self.buttons[row,col] = button
     handler = lambda: self.reset()
-    button = Button(self.app, text='reset', command=handler)
+    button = Button(self.app, text='Reset', command=handler)
     button.grid(row=DIMENSIONS+1, column=0, columnspan=DIMENSIONS, sticky="WE")
     self.update()
 
@@ -173,7 +173,7 @@ class GUI():
   def move(self,row,col):
     self.app.config(cursor="watch")
     self.app.update()
-    self.board = self.board.move(row,col)
+    self.board = self.board.play_turn(row, col, 'human')
     self.update()
     move = self.board.best_score()
     if move: 
@@ -191,7 +191,7 @@ class GUI():
         self.buttons[row,col]['state'] = 'normal'
       else:
         self.buttons[row,col]['state'] = 'disabled'
-   status = self.board.won()
+   status = self.board.won('comp')
    if status:
       for row,col in status:
         self.buttons[row,col]['disabledforeground'] = 'red'
