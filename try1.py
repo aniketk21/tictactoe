@@ -15,9 +15,9 @@ class Board(object):
         self.grid = grid
         self.occupied = [] # store occupied positions in the grid as a tuple in this list.
         self.empty_location = ' '
-	#for col in (DIMENSIONS):
-	#	for row in (DIMENSIONS):
-	#		self.grid[row][col] = self.empty_location
+	for col in range(DIMENSIONS):
+		for row in range(DIMENSIONS):
+			self.grid[row][col] = self.empty_location
     #def display_board(self): # for testing only
        # print '    0    1    2'
       #  i = 0
