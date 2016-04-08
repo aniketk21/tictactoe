@@ -23,36 +23,6 @@ class Board(object):
             i += 1
 
     def won(self):
-        '''if player == 'comp':
-            for row in range(DIMENSIONS): # check horizontal
-                status = []
-                for col in range(DIMENSIONS):
-                    if self.grid[row][col] == self.comp:
-                        status.append((row, col))
-                if len(status) == DIMENSIONS:
-                    return status
-            for col in range(DIMENSIONS): # check vertical
-                status = []
-                for row in range(DIMENSIONS):
-                    if self.grid[row][col] == self.comp:
-                        status.append((row, col))
-                if len(status) == DIMENSIONS:
-                    return status
-            for index in range(DIMENSIONS): # check main diagonal
-                status = []
-                if self.grid[index][index] == self.comp:
-                    status.append((index, index))
-                if len(status) == DIMENSIONS:
-                    return status
-            for row in range(DIMENSIONS): # check opposite diagonal
-                status = []
-                col = DIMENSIONS - row - 1
-                if self.grid[row][col] == self.comp:
-                    status.append((row, col))
-                if len(status) == DIMENSIONS:
-                    return status
-            return None # default case
-        '''
         for col in range(DIMENSIONS): # check vertical
             status = []
             for row in range(DIMENSIONS):
@@ -67,14 +37,14 @@ class Board(object):
                     status.append((row, col))
             if len(status) == DIMENSIONS:
                 return status
+        status = []
         for index in range(DIMENSIONS): # check main diagonal
-            status = []
             if self.grid[index][index] == self.human:
                 status.append((index, index))
         if len(status) == DIMENSIONS:
             return status
+        status = []
         for row in range(DIMENSIONS): # check opposite diagonal
-            status = []
             col = DIMENSIONS - row - 1
             if self.grid[row][col] == self.human:
                 status.append((row, col))
@@ -97,6 +67,7 @@ class Board(object):
                     if self.grid[row][col] == self.empty_location:
                         score = self.play_turn(row, col).__minimax(not current_player)[0]
                         if score > best_score[0]:
+                            best_score = ()
                             best_score = (score, (row, col))
             return best_score
         else:
@@ -106,6 +77,7 @@ class Board(object):
                     if self.grid[row][col] == self.empty_location:
                         score = self.play_turn(row, col).__minimax(not current_player)[0]
                         if score < best_score[0]:
+                            best_score = ()
                             best_score = (score, (row, col))
             return best_score
 
@@ -156,7 +128,6 @@ class GUI():
         self.board = self.board.play_turn(row, col)
         self.update()
         move = self.board.best_score()
-        print 'move', move
         if move:
             self.board = self.board.play_turn(move[0], move[1])
             self.update()
@@ -174,8 +145,7 @@ class GUI():
                     self.buttons[row, col]['state'] = 'disabled'
         status = self.board.won()
         if status:
-            print 'status', status
-            for (col, row) in status: ###
+            for (row, col) in status:
                 self.buttons[row, col]['disabledforeground'] = 'red'
             for row,col in self.buttons:
                 self.buttons[row,col]['state'] = 'disabled'
