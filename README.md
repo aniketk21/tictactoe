@@ -2,7 +2,7 @@
 Unbeatable Tic Tac Toe game, written in Python.  
 
 Uses the [Minimax Algorithm](https://en.wikipedia.org/wiki/Minimax) for AI.  
-Uses GTK and PyGTK for GUI.
+Uses the Tkinter module for GUI.
 
 ## Contributors:  
 
