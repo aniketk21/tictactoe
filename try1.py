@@ -67,7 +67,6 @@ class Board(object):
                     if self.grid[row][col] == self.empty_location:
                         score = self.play_turn(row, col).__minimax(not current_player)[0]
                         if score > best_score[0]:
-                            best_score = ()
                             best_score = (score, (row, col))
             return best_score
         else:
@@ -77,7 +76,6 @@ class Board(object):
                     if self.grid[row][col] == self.empty_location:
                         score = self.play_turn(row, col).__minimax(not current_player)[0]
                         if score < best_score[0]:
-                            best_score = ()
                             best_score = (score, (row, col))
             return best_score
 
