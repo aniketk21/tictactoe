@@ -1,6 +1,7 @@
 from Tkinter import Tk, Button
 from tkFont import Font
 from copy import deepcopy
+from Tkinter import *
 
 DIMENSIONS = 3 # dimensions of the playing grid.
 
@@ -178,25 +179,56 @@ class GUI():
         self.buttons = {}
         for row in range(DIMENSIONS):
             for col in range(DIMENSIONS):
-	        handler = lambda x=row,y=col: self.move(x, y)
-	        button = Button(self.app, command=handler, font=self.font, width=3, height=2)
-	        button.grid(row=col, column=row)
-                self.buttons[row, col] = button
-        #handler = lambda: self.reset()
-        button = Button(self.app, text='Reset', command=self.reset)
-        button.grid(row=DIMENSIONS+1, column=0, columnspan=DIMENSIONS, sticky="WE")
+	        handler = lambda x=row,y=col: self.move(x, y, 'EASY')
+	        button_T = Button(self.app, command=handler, font=self.font, width=3, height=2)
+	        button_T.grid(row=col, column=row)
+                self.buttons[row, col] = button_T
+        
+        handler_E = lambda: self.reset('EASY')
+        button_E = Button(self.app, text='EASY', command=handler_E)
+        button_E.grid(row=DIMENSIONS+1, column=0, columnspan=1, sticky="WE")
+        
+        handler_M = lambda: self.reset('MEDIUM')        
+        button_M = Button(self.app, text='MEDIUM', command=handler_M)
+        button_M.grid(row=DIMENSIONS+1, column=1, columnspan=1, sticky="WE")
+        
+        
+        handler_H = lambda: self.reset('HARD')
+        button_H = Button(self.app, text='HARD', command=handler_H)
+        button_H.grid(row=DIMENSIONS+1, column=2, columnspan=1, sticky="WE")
+        
+        #handler = lambda: self.reset('EASY')
+        #button_R = Button(self.app, text='Reset', command=handler)
+        #button_R.grid(row=DIMENSIONS+2, column=0, columnspan=DIMENSIONS, sticky="WE")
         self.update()
 
-    def reset(self):
+    def reset(self,level):
         self.board = Board()
+        self.wh(level)
         self.update()
 
-    def move(self, row, col):
+    def wh(self,level):
+        for row in range(DIMENSIONS):
+            for col in range(DIMENSIONS):
+                if level == 'HARD':
+                    handler = lambda x=row,y=col: self.move(x, y, 'HARD')
+                if level == 'EASY':
+                    handler = lambda x=row,y=col: self.move(x, y, 'EASY')
+                if level == 'MEDIUM':
+                    handler = lambda x=row,y=col: self.move(x, y, 'MEDIUM')
+                button_T = Button(self.app, command=handler, font=self.font, width=3, height=2)
+
+    def move(self, row, col, level):
         self.app.config(cursor="watch")
         self.app.update()
         self.board = self.board.play_turn(row, col)
         self.update()
-        move = self.board.best_score_hard()
+        if level == 'HARD':
+            move = self.board.best_score_hard()
+        if level == 'EASY':
+            move = self.board.best_score_easy()
+        if level == 'MEDIUM':
+            move = self.board.best_score_medium()
         if move:
             self.board = self.board.play_turn(move[0], move[1])
             self.update()
