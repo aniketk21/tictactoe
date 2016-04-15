@@ -184,6 +184,14 @@ class GUI():
 	        button_T.grid(row=col, column=row)
                 self.buttons[row, col] = button_T
         
+        self.which_level()
+        
+        #handler = lambda: self.reset('EASY')
+        #button_R = Button(self.app, text='Reset', command=handler)
+        #button_R.grid(row=DIMENSIONS+2, column=0, columnspan=DIMENSIONS, sticky="WE")
+        self.update()
+    
+    def which_level(self):
         handler_E = lambda: self.reset('EASY')
         button_E = Button(self.app, text='EASY', command=handler_E)
         button_E.grid(row=DIMENSIONS+1, column=0, columnspan=1, sticky="WE")
@@ -196,15 +204,14 @@ class GUI():
         handler_H = lambda: self.reset('HARD')
         button_H = Button(self.app, text='HARD', command=handler_H)
         button_H.grid(row=DIMENSIONS+1, column=2, columnspan=1, sticky="WE")
-        
-        #handler = lambda: self.reset('EASY')
-        #button_R = Button(self.app, text='Reset', command=handler)
-        #button_R.grid(row=DIMENSIONS+2, column=0, columnspan=DIMENSIONS, sticky="WE")
-        self.update()
+
 
     def reset(self,level):
         self.board = Board()
+        for button in self.app.grid_slaves():
+            button.grid_forget()
         self.wh(level)
+        self.which_level()
         self.update()
 
     def wh(self,level):
@@ -217,6 +224,8 @@ class GUI():
                 if level == 'MEDIUM':
                     handler = lambda x=row,y=col: self.move(x, y, 'MEDIUM')
                 button_T = Button(self.app, command=handler, font=self.font, width=3, height=2)
+                button_T.grid(row=col, column=row)
+                self.buttons[row, col] = button_T
 
     def move(self, row, col, level):
         self.app.config(cursor="watch")
