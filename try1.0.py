@@ -193,16 +193,21 @@ class GUI():
         self.update()
     
     def which_level(self):
+        '''
+            #FF6103: cadmiumorange
+            #00CD00: green3
+            #EE0000: red2
+        '''
         handler_E = lambda: self.reset('EASY')
-        button_E = Button(self.app, text = 'EASY', command = handler_E, bg = "cyan", foreground = "green", font = self.font1, bd = 4)
+        button_E = Button(self.app, text = 'EASY', command = handler_E, bg = "#00CD00", foreground = "white", font = self.font1, bd = 4)
         button_E.grid(row = DIMENSIONS + 1, column = 0, columnspan = 1, sticky = "WE")
 
         handler_M = lambda: self.reset('MEDIUM')        
-        button_M = Button(self.app, text = 'MEDIUM', command = handler_M, bg = "cyan", foreground = "blue", font = self.font1, bd = 4)
+        button_M = Button(self.app, text = 'MEDIUM', command = handler_M, bg = "#FF6103", foreground = "white", font = self.font1, bd = 4)
         button_M.grid(row = DIMENSIONS + 1, column = 1, columnspan = 1, sticky = "WE")
         
         handler_H = lambda: self.reset('HARD')
-        button_H = Button(self.app, text = 'HARD', command = handler_H, bg = "cyan", foreground = "red", font = self.font1, bd = 4)
+        button_H = Button(self.app, text = 'HARD', command = handler_H, bg = "#EE0000", foreground = "white", font = self.font1, bd = 4)
         button_H.grid(row = DIMENSIONS + 1, column = 2, columnspan = 1, sticky = "WE")
 
     def reset(self, level):
@@ -246,6 +251,9 @@ class GUI():
         self.app.config(cursor="")
 
     def update(self):
+        '''
+            #FF0000: red1
+        '''
         for row in range(DIMENSIONS):
             for col in range(DIMENSIONS):
                 text = self.board.grid[row][col]
@@ -262,7 +270,7 @@ class GUI():
                 status = self.board.won()
         if status:
             for (row, col) in status:
-                self.buttons[row, col]['disabledforeground'] = 'red'
+                self.buttons[row, col]['disabledforeground'] = '#FF0000'
             for (row, col) in self.buttons:
                 self.buttons[row, col]['state'] = 'disabled'
             for row in range(DIMENSIONS):
