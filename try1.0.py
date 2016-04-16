@@ -176,17 +176,17 @@ class GUI():
     def __init__(self):
         self.app = Tk()
         self.app.title('Tic Tac Toe')
-        self.app.resizable(width=False, height=False)
+        self.app.resizable(width = False, height = False)
         self.board = Board()
-        self.font = Font(family="Helvetica", size=32)
+        self.font = Font(family="Helvetica", size = 32)
         self.font1 = Font(family="Times", size = 14) 
         self.buttons = {}
         self.level = 'EASY'
         for row in range(DIMENSIONS):
             for col in range(DIMENSIONS):
-	        handler = lambda x=row,y=col: self.move(x, y, 'EASY')
-	        button_T = Button(self.app, command=handler, font=self.font, width=3, height=2, bd = 3)
-	        button_T.grid(row=col, column=row)
+	        handler = lambda x = row, y = col: self.move(x, y, 'EASY')
+	        button_T = Button(self.app, command = handler, font = self.font, width = 3, height = 2, bd = 3)
+	        button_T.grid(row = col, column = row)
                 self.buttons[row, col] = button_T
         
         self.which_level()
@@ -194,16 +194,16 @@ class GUI():
     
     def which_level(self):
         handler_E = lambda: self.reset('EASY')
-        button_E = Button(self.app, text='EASY', command=handler_E, bg = "cyan", foreground="green", font = self.font1, bd = 4)
-        button_E.grid(row=DIMENSIONS+1, column=0, columnspan=1, sticky="WE")
+        button_E = Button(self.app, text = 'EASY', command = handler_E, bg = "cyan", foreground = "green", font = self.font1, bd = 4)
+        button_E.grid(row = DIMENSIONS + 1, column = 0, columnspan = 1, sticky = "WE")
 
         handler_M = lambda: self.reset('MEDIUM')        
-        button_M = Button(self.app, text='MEDIUM', command=handler_M, bg = "cyan", foreground = "blue", font = self.font1, bd = 4)
-        button_M.grid(row=DIMENSIONS+1, column=1, columnspan=1, sticky="WE")
+        button_M = Button(self.app, text = 'MEDIUM', command = handler_M, bg = "cyan", foreground = "blue", font = self.font1, bd = 4)
+        button_M.grid(row = DIMENSIONS + 1, column = 1, columnspan = 1, sticky = "WE")
         
         handler_H = lambda: self.reset('HARD')
-        button_H = Button(self.app, text='HARD', command=handler_H, bg = "cyan", foreground = "red", font = self.font1, bd = 4)
-        button_H.grid(row=DIMENSIONS+1, column=2, columnspan=1, sticky="WE")
+        button_H = Button(self.app, text = 'HARD', command = handler_H, bg = "cyan", foreground = "red", font = self.font1, bd = 4)
+        button_H.grid(row = DIMENSIONS + 1, column = 2, columnspan = 1, sticky = "WE")
 
     def reset(self, level):
         self.board = Board()
@@ -217,20 +217,20 @@ class GUI():
         for row in range(DIMENSIONS):
             for col in range(DIMENSIONS):
                 if level == 'HARD':
-                    handler = lambda x=row,y=col: self.move(x, y, 'HARD')
+                    handler = lambda x = row, y = col: self.move(x, y, 'HARD')
                     self.level = 'HARD'
                 elif level == 'EASY':
-                    handler = lambda x=row,y=col: self.move(x, y, 'EASY')
+                    handler = lambda x = row, y = col: self.move(x, y, 'EASY')
                     self.level = 'EASY'
                 elif level == 'MEDIUM':
-                    handler = lambda x=row,y=col: self.move(x, y, 'MEDIUM')
+                    handler = lambda x = row, y = col: self.move(x, y, 'MEDIUM')
                     self.level = 'MEDIUM'
-                button_T = Button(self.app, command=handler, font=self.font, width=3, height=2, bd = 3)
-                button_T.grid(row=col, column=row)
+                button_T = Button(self.app, command = handler, font = self.font, width = 3, height = 2, bd = 3)
+                button_T.grid(row = col, column = row)
                 self.buttons[row, col] = button_T
 
     def move(self, row, col, level):
-        self.app.config(cursor="watch")
+        self.app.config(cursor = "watch")
         self.app.update()
         self.board = self.board.play_turn(row, col)
         self.update()
