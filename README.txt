@@ -23,6 +23,15 @@ LANGUAGE :
 PLATFORM :
     Mainly targets Linux distributions and Windows. This application was developed on Ubuntu 14.04.
 
+REQUIREMENTS:
+    1. Linux Platforms:
+        The game requires the TkInter Python module for successful execution.
+        To install Tkinter module type the following command on the command prompt of your terminal.
+	        $ sudo apt-get install python-tk
+
+    2. Windows:
+        Install Python (version 2.x) on your system.
+
 EXECUTION:
     1. Linux Platforms:
         Execute the ttt.py file to run the game. To start the application type the following command on the command
@@ -32,19 +41,10 @@ EXECUTION:
     
     2. Windows:
         Double click on the ttt file.
-
-REQUIREMENTS:
-    1. Linux Platforms:
-        The game requires the TkInter Python module for successful execution.
-        To install Tkinter module type the following command on the command prompt of your terminal.
-	        $ sudo apt-get install python-tk
-
-    2. Windows:
-        Install Python (version 2.x) on your system.
  			
-FOR ANY PROBLEMS OR CORRECTIONS CONTACT:
-    1. Aniket Kulkarni     kaniket21@gmail.com
-    2. Rohan Patil         rohanrahulpatil89@gmail.com
-    3. Sumedh Kale         sumedh_kale@yahoo.com
+DEVELOPED BY:
+    1. Aniket Kulkarni     (111403064)   kaniket21@gmail.com
+    2. Rohan Patil         (111408046)   rohanrahulpatil89@gmail.com
+    3. Sumedh Kale         (111403062)   sumedh_kale@yahoo.com
 
 View this project on GitHub at https://github.com/aniketk21/tictactoe
