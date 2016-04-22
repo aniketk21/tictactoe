@@ -18,11 +18,10 @@ DESCRIPTION :
     9. If any one of the 3 buttons described above is pressed in the middle of a game, the game is RESET.
 
 LANGUAGE :
-    The program is written in Python (2.x) and requires a Python interpreter for compilation and successful execution.
+    The program is written in Python and requires a Python interpreter for compilation and successful execution.
 
 PLATFORM :
-    Mainly targets Linux distributions. This application was developed on Ubuntu 14.04.
-    This application can be run directly on Windows through the EXE file provided.
+    Mainly targets Linux distributions and Windows. This application was developed on Ubuntu 14.04.
 
 EXECUTION:
     1. Linux Platforms:
@@ -30,14 +29,19 @@ EXECUTION:
         prompt of your terminal.
             $ python ttt.py
         [Make sure that you are in the folder consisting of the ttt.py file before executing.]
+    
     2. Windows:
-        Through cmd run ttt.exe.
+        Double click on the ttt file.
 
 REQUIREMENTS:
-    The game requires the TkInter Python module for successful execution.
-    To install Tkinter module type the following command on the command prompt of your terminal.
-	    $ sudo apt-get install python-tk
-				
+    1. Linux Platforms:
+        The game requires the TkInter Python module for successful execution.
+        To install Tkinter module type the following command on the command prompt of your terminal.
+	        $ sudo apt-get install python-tk
+
+    2. Windows:
+        Install Python (version 2.x) on your system.
+ 			
 FOR ANY PROBLEMS OR CORRECTIONS CONTACT:
     1. Aniket Kulkarni     kaniket21@gmail.com
     2. Rohan Patil         rohanrahulpatil89@gmail.com
